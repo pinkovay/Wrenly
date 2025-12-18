@@ -1,0 +1,4 @@
+bin/
+obj/
+.vscode/
+src/backend/Wrenly.Api/appsettings.Development.json
