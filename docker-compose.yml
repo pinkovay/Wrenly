@@ -1,0 +1,35 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: wrenly-sql
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=${SQL_SERVER_PASSWORD}
+    ports:
+      - "${SQL_SERVER_PORT}:1433"
+    networks:
+      - wrenly-network
+    volumes:
+      - wrenly_sql:/var/opt/mssql
+
+  backend:
+    build:
+      context: .
+      dockerfile: src/backend/Wrenly.Api/Dockerfile
+    container_name: wrenly-api
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__AuthDb=Server=sqlserver;Database=Wrenly.Auth;User Id=sa;Password=${SQL_SERVER_PASSWORD};TrustServerCertificate=True
+    depends_on:
+      - sqlserver
+    networks:
+      - wrenly-network
+
+networks:
+  wrenly-network:
+    driver: bridge
+
+volumes:
+  wrenly_sql:
