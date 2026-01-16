@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wrenly.Domain", "src\backen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wrenly.Infrastructure", "src\backend\Wrenly.Infrastructure\Wrenly.Infrastructure.csproj", "{FC58C9DF-19F8-429B-BF7A-38666F1801F6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wrenly.Application", "src\backend\Wrenly.Application\Wrenly.Application.csproj", "{2DEB4C9A-0071-4F0B-AAC2-0ADF8466A8B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,18 @@ Global
 		{FC58C9DF-19F8-429B-BF7A-38666F1801F6}.Release|x64.Build.0 = Release|Any CPU
 		{FC58C9DF-19F8-429B-BF7A-38666F1801F6}.Release|x86.ActiveCfg = Release|Any CPU
 		{FC58C9DF-19F8-429B-BF7A-38666F1801F6}.Release|x86.Build.0 = Release|Any CPU
+		{2DEB4C9A-0071-4F0B-AAC2-0ADF8466A8B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DEB4C9A-0071-4F0B-AAC2-0ADF8466A8B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DEB4C9A-0071-4F0B-AAC2-0ADF8466A8B0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2DEB4C9A-0071-4F0B-AAC2-0ADF8466A8B0}.Debug|x64.Build.0 = Debug|Any CPU
+		{2DEB4C9A-0071-4F0B-AAC2-0ADF8466A8B0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2DEB4C9A-0071-4F0B-AAC2-0ADF8466A8B0}.Debug|x86.Build.0 = Debug|Any CPU
+		{2DEB4C9A-0071-4F0B-AAC2-0ADF8466A8B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DEB4C9A-0071-4F0B-AAC2-0ADF8466A8B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DEB4C9A-0071-4F0B-AAC2-0ADF8466A8B0}.Release|x64.ActiveCfg = Release|Any CPU
+		{2DEB4C9A-0071-4F0B-AAC2-0ADF8466A8B0}.Release|x64.Build.0 = Release|Any CPU
+		{2DEB4C9A-0071-4F0B-AAC2-0ADF8466A8B0}.Release|x86.ActiveCfg = Release|Any CPU
+		{2DEB4C9A-0071-4F0B-AAC2-0ADF8466A8B0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,5 +82,6 @@ Global
 		{A5B24C12-DD7A-45F6-A291-02E87142E769} = {FE360695-3F2B-1049-3887-35FBB5135923}
 		{8B40F746-29A8-44FA-AD01-865D618E7D09} = {FE360695-3F2B-1049-3887-35FBB5135923}
 		{FC58C9DF-19F8-429B-BF7A-38666F1801F6} = {FE360695-3F2B-1049-3887-35FBB5135923}
+		{2DEB4C9A-0071-4F0B-AAC2-0ADF8466A8B0} = {FE360695-3F2B-1049-3887-35FBB5135923}
 	EndGlobalSection
 EndGlobal
