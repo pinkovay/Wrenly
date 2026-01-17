@@ -13,7 +13,15 @@ public class AuthDbContext(DbContextOptions<AuthDbContext> options)
     {
         base.OnModelCreating(builder);
 
-        builder.Entity<User>(b => b.ToTable("Users"));
+        builder.Entity<User>(b =>
+        {
+            b.ToTable("Users");
+            b.HasIndex(u => u.Email).IsUnique();
+            b.HasIndex(u => u.UserName).IsUnique();
+            
+            b.Property(u => u.Email).HasMaxLength(256).IsRequired();
+            b.Property(u => u.UserName).HasMaxLength(256).IsRequired();
+        });
         
         builder.Entity<IdentityRole<Guid>>(b => b.ToTable("Roles"));
         

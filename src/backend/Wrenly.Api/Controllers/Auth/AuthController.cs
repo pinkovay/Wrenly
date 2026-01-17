@@ -9,7 +9,7 @@ namespace Wrenly.Api.Controllers.Auth;
 [ApiController]
 public class AuthController(IAuthAppService authAppService) : ControllerBase
 {
-    [HttpPost("register")]
+    [HttpPost("singup")]
     public async Task<IActionResult> Register([FromBody] RegisterUserRequest request)
     {
         var result = await authAppService.RegisterAsync(request);

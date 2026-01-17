@@ -33,14 +33,4 @@ app.MapAuthEndpoints();
 app.MapGet("/health", () => Results.Ok(new {status = "ok"}))
     .WithName("healthCheck - Application in early development");
 
-app.Use(async (context, next) =>
-{
-    if (context.Request.Path == "/auth/register" && context.Request.Method == "POST")
-    {
-        context.Response.StatusCode = StatusCodes.Status404NotFound;
-        return;
-    }
-    await next();
-});
-
 app.Run();

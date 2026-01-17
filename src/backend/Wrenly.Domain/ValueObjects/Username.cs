@@ -16,7 +16,7 @@ public record Username
         if (value.Length < 3 || value.Length > 50)
             return Result<Username>.Failure(["Username deve ter entre 3 e 50 caracteres."]);
 
-        return Result<Username>.Success(new Username(value));
+        return Result<Username>.Success(new Username(value.ToLowerInvariant()));
     }
     
     // Conversão implícita para facilitar o uso

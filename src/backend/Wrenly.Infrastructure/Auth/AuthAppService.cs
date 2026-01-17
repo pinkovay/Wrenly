@@ -14,12 +14,25 @@ public class AuthAppService(UserManager<User> userManager) : IAuthAppService
 
     public async Task<Result> RegisterAsync(RegisterUserRequest registerRequest)
     {
-        var usernameResult = Username.Create(registerRequest.Username);
+        var isEmailAlreadyInUse = await _userManager.FindByEmailAsync(registerRequest.Email);
+        if (isEmailAlreadyInUse != null)
+        {
+            return Result.Failure("O e-mail informado já está em uso.");
+        }
 
+        var usernameResult = Username.Create(registerRequest.Username);
         if (!usernameResult.Succeeded)
-        {
             return Result.Failure(usernameResult.Errors);
-        }
+
+        var isUserNameAlreadyInUse = await _userManager.FindByNameAsync(usernameResult.Data!.Value);
+        if(isUserNameAlreadyInUse != null)
+        {
+            return Result.Failure("Nome de usuário indisponivel");
+        }
+
+        var passwordResult = Password.Create(registerRequest.Password);
+        if(!passwordResult.Succeeded)
+            return Result.Failure(passwordResult.Errors);   
 
         var user = new User
         {
@@ -27,7 +40,7 @@ public class AuthAppService(UserManager<User> userManager) : IAuthAppService
             UserName = usernameResult.Data!.Value
         };
 
-        var identityResult = await _userManager.CreateAsync(user, registerRequest.Password);
+        var identityResult = await _userManager.CreateAsync(user, passwordResult.Data!.Value);
 
         if (!identityResult.Succeeded)
         {

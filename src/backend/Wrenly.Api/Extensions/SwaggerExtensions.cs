@@ -1,4 +1,5 @@
 using System;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.OpenApi.Models;
 
 namespace Wrenly.Api.Extensions;
@@ -28,6 +29,11 @@ public static class SwaggerExtensions
                     },
                     Array.Empty<string>()
                 }
+            });
+
+            c.ResolveConflictingActions(ApiDescription =>
+            {
+                return ApiDescription.First(ad => ad.ActionDescriptor is Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor);
             });
         });
 

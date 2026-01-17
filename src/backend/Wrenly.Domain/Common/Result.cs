@@ -15,7 +15,7 @@ public class Result
     }
 
     public static Result Success() => new(true, []);
-    public static Result Failure(string[] errors) => new(false, errors);
+    public static Result Failure(params string[] errors) => new(false, errors);
 }
 
 // Versão quando é necessário retornar dado (ex: GUID)
@@ -29,5 +29,5 @@ public class Result<T> : Result
     }
 
     public static Result<T> Success(T data) => new(true, data, []);
-    public static new Result<T> Failure(string[] errors) => new(false, default, errors);
+    public static new Result<T> Failure(params string[] errors) => new(false, default, errors);
 }
