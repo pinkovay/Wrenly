@@ -7,12 +7,12 @@ namespace Wrenly.Api.Controllers.Auth;
 
 [Route("api/auth")]
 [ApiController]
-public class AuthController(IAuthAppService authAppService) : ControllerBase
+public class RegisterController(IUserRegistrationService userRegistrationService) : ControllerBase
 {
     [HttpPost("singup")]
     public async Task<IActionResult> Register([FromBody] RegisterUserRequest request)
     {
-        var result = await authAppService.RegisterAsync(request);
+        var result = await userRegistrationService.RegisterAsync(request);
 
         if (!result.Succeeded)
         {

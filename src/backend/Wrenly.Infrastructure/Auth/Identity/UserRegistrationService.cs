@@ -6,9 +6,9 @@ using Wrenly.Domain.Common;
 using Wrenly.Domain.Entities;
 using Wrenly.Domain.ValueObjects;
 
-namespace Wrenly.Infrastructure.Auth;
+namespace Wrenly.Infrastructure.Auth.Identity;
 
-public class AuthAppService(UserManager<User> userManager) : IAuthAppService
+public class UserRegistrationService(UserManager<User> userManager) : IUserRegistrationService
 {
     private readonly UserManager<User> _userManager = userManager;
 

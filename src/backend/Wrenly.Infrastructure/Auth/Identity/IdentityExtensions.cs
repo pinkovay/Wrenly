@@ -39,7 +39,7 @@ public static class IdentityExtensions
 
         services.AddAuthorization();
 
-        services.AddScoped<IAuthAppService, AuthAppService>();
+        services.AddScoped<IUserRegistrationService, UserRegistrationService>();
 
         return services;
     }

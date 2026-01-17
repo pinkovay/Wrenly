@@ -4,7 +4,7 @@ using Wrenly.Domain.Common;
 
 namespace Wrenly.Application.Auth.Interfaces;
 
-public interface IAuthAppService
+public interface IUserRegistrationService
 {
     Task<Result> RegisterAsync(RegisterUserRequest registerRequest);
 }
