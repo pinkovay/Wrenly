@@ -2,7 +2,7 @@ using System;
 using Microsoft.AspNetCore.Identity;
 using Wrenly.Application.Auth.DTOs;
 using Wrenly.Application.Auth.Interfaces;
-using Wrenly.Domain.Common;
+using Wrenly.Domain.Common.Results;
 using Wrenly.Domain.Entities;
 using Wrenly.Domain.ValueObjects;
 

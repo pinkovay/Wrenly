@@ -1,4 +1,4 @@
-using Wrenly.Domain.Common;
+using Wrenly.Domain.Common.Results;
 
 namespace Wrenly.Domain.ValueObjects;
 

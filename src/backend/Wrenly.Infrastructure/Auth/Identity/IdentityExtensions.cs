@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Wrenly.Application.Auth.Interfaces;
+using Wrenly.Domain.Common.Email;
 using Wrenly.Domain.Entities;
+using Wrenly.Infrastructure.Email;
 
 namespace Wrenly.Infrastructure.Auth.Identity;
 
@@ -40,6 +42,11 @@ public static class IdentityExtensions
         services.AddAuthorization();
 
         services.AddScoped<IUserRegistrationService, UserRegistrationService>();
+
+        services.AddTransient<IEmailService, EmailService>();
+
+        // Adaptador que conecta o IEmailService ao IEmailSender do Identity
+        services.AddTransient<IEmailSender<User>, IdentityEmailAdapter>();
 
         return services;
     }

@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics.Contracts;
 
-namespace Wrenly.Domain.Common;
+namespace Wrenly.Domain.Common.Results;
 
 public class Result
 {
