@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
-using Wrenly.Application.Auth.Interfaces;
+using Wrenly.Application.Auth.Register;
 using Wrenly.Domain.Common.Email;
 using Wrenly.Domain.Entities;
 using Wrenly.Infrastructure.Email;

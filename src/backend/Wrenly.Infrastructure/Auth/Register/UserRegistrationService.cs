@@ -1,7 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Identity;
-using Wrenly.Application.Auth.DTOs;
-using Wrenly.Application.Auth.Interfaces;
+using Wrenly.Application.Auth.Register;
 using Wrenly.Domain.Common.Results;
 using Wrenly.Domain.Entities;
 using Wrenly.Domain.ValueObjects;
@@ -12,15 +11,15 @@ public class UserRegistrationService(UserManager<User> userManager) : IUserRegis
 {
     private readonly UserManager<User> _userManager = userManager;
 
-    public async Task<Result> RegisterAsync(RegisterUserRequest registerRequest)
+    public async Task<Result> RegisterAsync(RegisterDTO registerDTO)
     {
-        var isEmailAlreadyInUse = await _userManager.FindByEmailAsync(registerRequest.Email);
+        var isEmailAlreadyInUse = await _userManager.FindByEmailAsync(registerDTO.Email);
         if (isEmailAlreadyInUse != null)
         {
             return Result.Failure("O e-mail informado já está em uso.");
         }
 
-        var usernameResult = Username.Create(registerRequest.Username);
+        var usernameResult = Username.Create(registerDTO.Username);
         if (!usernameResult.Succeeded)
             return Result.Failure(usernameResult.Errors);
 
@@ -30,13 +29,13 @@ public class UserRegistrationService(UserManager<User> userManager) : IUserRegis
             return Result.Failure("Nome de usuário indisponivel");
         }
 
-        var passwordResult = Password.Create(registerRequest.Password);
+        var passwordResult = Password.Create(registerDTO.Password);
         if(!passwordResult.Succeeded)
             return Result.Failure(passwordResult.Errors);   
 
         var user = new User
         {
-            Email = registerRequest.Email,
+            Email = registerDTO.Email,
             UserName = usernameResult.Data!.Value
         };
 

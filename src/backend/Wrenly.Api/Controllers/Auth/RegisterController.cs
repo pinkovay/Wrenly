@@ -1,18 +1,17 @@
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Wrenly.Application.Auth.DTOs;
-using Wrenly.Application.Auth.Interfaces;
+using Wrenly.Application.Auth.Register;
 
 namespace Wrenly.Api.Controllers.Auth;
 
 [Route("api/auth")]
+[Tags("Auth")]
 [ApiController]
 public class RegisterController(IUserRegistrationService userRegistrationService) : ControllerBase
 {
     [HttpPost("singup")]
-    public async Task<IActionResult> Register([FromBody] RegisterUserRequest request)
+    public async Task<IActionResult> Register([FromBody] RegisterDTO registerDTO)
     {
-        var result = await userRegistrationService.RegisterAsync(request);
+        var result = await userRegistrationService.RegisterAsync(registerDTO);
 
         if (!result.Succeeded)
         {
