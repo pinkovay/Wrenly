@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Wrenly.Api.Extensions;
-using Wrenly.Domain.Common.Email;
+using Wrenly.Application.Common.Email;
 using Wrenly.Infrastructure.Auth.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +12,7 @@ builder.Services.AddDbContext<AuthDbContext>(options =>
     );
 });
 
-builder.Services.Configure<SmtpOptions>(builder.Configuration.GetSection(SmtpOptions.GmailOptionskey));
+builder.Services.Configure<SmtpOptions>(builder.Configuration.GetSection(SmtpOptions.SectionName));
 
 builder.Services.AddControllers();
 

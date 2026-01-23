@@ -1,11 +1,11 @@
 ﻿using System;
 using Microsoft.AspNetCore.Identity;
-using Wrenly.Application.Auth.Register;
+using Wrenly.Application.Auth.Registration;
 using Wrenly.Domain.Common.Results;
 using Wrenly.Domain.Entities;
 using Wrenly.Domain.ValueObjects;
 
-namespace Wrenly.Infrastructure.Auth.Register;
+namespace Wrenly.Infrastructure.Auth.Registration;
 
 public class UserRegistrationService(UserManager<User> userManager) : IUserRegistrationService
 {

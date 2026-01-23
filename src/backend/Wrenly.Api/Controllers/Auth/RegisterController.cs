@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Wrenly.Application.Auth.Register;
+using Wrenly.Application.Auth.Registration;
 
 namespace Wrenly.Api.Controllers.Auth;
 

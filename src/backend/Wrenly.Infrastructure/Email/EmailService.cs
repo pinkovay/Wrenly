@@ -2,8 +2,7 @@ using System;
 using System.Net;
 using System.Net.Mail;
 using Microsoft.Extensions.Options;
-using Wrenly.Domain.Common.Email;
-
+using Wrenly.Application.Common.Email;
 namespace Wrenly.Infrastructure.Email;
 
 public class EmailService(IOptions<SmtpOptions> smtpOptions) : IEmailService

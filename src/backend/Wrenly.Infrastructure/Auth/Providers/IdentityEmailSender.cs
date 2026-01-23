@@ -1,11 +1,11 @@
 using System;
 using Microsoft.AspNetCore.Identity;
-using Wrenly.Domain.Common.Email;
+using Wrenly.Application.Common.Email;
 using Wrenly.Domain.Entities;
 
-namespace Wrenly.Infrastructure.Auth.Identity;
+namespace Wrenly.Infrastructure.Auth.Providers;
 
-public class IdentityEmailAdapter(IEmailService emailService) : IEmailSender<User>
+public class IdentityEmailSender(IEmailService emailService) : IEmailSender<User>
 {
     public async Task SendConfirmationLinkAsync(User user, string email, string confirmationLink)
     {

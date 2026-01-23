@@ -10,4 +10,9 @@
     <ProjectReference Include="..\Wrenly.Domain\Wrenly.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\" />
+    <Folder Include="Common\Email\" />
+  </ItemGroup>
+
 </Project>

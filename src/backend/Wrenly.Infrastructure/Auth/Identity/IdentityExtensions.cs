@@ -1,13 +1,13 @@
-using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
-using Wrenly.Application.Auth.Register;
-using Wrenly.Domain.Common.Email;
+using Wrenly.Application.Auth.Registration;
+using Wrenly.Application.Common.Email;
 using Wrenly.Domain.Entities;
-using Wrenly.Infrastructure.Auth.Register;
+using Wrenly.Infrastructure.Auth.Providers;
+using Wrenly.Infrastructure.Auth.Registration;
 using Wrenly.Infrastructure.Email;
 
 namespace Wrenly.Infrastructure.Auth.Identity;
@@ -46,7 +46,7 @@ public static class IdentityExtensions
 
         services.AddTransient<IEmailService, EmailService>();
 
-        services.AddTransient<IEmailSender<User>, IdentityEmailAdapter>();
+        services.AddTransient<IEmailSender<User>, IdentityEmailSender>();
 
         return services;
     }

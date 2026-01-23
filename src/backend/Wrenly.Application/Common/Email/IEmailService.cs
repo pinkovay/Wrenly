@@ -1,6 +1,6 @@
 using System;
 
-namespace Wrenly.Domain.Common.Email;
+namespace Wrenly.Application.Common.Email;
 
 public interface IEmailService
 {
