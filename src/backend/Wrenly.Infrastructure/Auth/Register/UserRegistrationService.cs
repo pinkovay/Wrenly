@@ -5,7 +5,7 @@ using Wrenly.Domain.Common.Results;
 using Wrenly.Domain.Entities;
 using Wrenly.Domain.ValueObjects;
 
-namespace Wrenly.Infrastructure.Auth.Identity;
+namespace Wrenly.Infrastructure.Auth.Register;
 
 public class UserRegistrationService(UserManager<User> userManager) : IUserRegistrationService
 {
@@ -21,10 +21,13 @@ public class UserRegistrationService(UserManager<User> userManager) : IUserRegis
         if (!passwordResult.Succeeded)
             return Result.Failure(passwordResult.Errors);
 
-        // Tentar criar usuario - deixa o Identity e banco de dados garantirem unicidade
+        var emailResult = Domain.ValueObjects.Email.Create(registerDTO.Email);
+        if (!emailResult.Succeeded)
+            return Result.Failure(emailResult.Errors);
+
         var user = new User
         {
-            Email = registerDTO.Email,
+            Email = emailResult.Data!.Value,
             UserName = usernameResult.Data!.Value
         };
 
