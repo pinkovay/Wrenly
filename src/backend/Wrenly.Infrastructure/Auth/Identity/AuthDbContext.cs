@@ -2,6 +2,7 @@ using System;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Wrenly.Domain.Abstractions;
 using Wrenly.Domain.Entities;
 
 namespace Wrenly.Infrastructure.Auth.Identity;
@@ -15,6 +16,14 @@ public class AuthDbContext(DbContextOptions<AuthDbContext> options)
 
         builder.Entity<User>(b =>
         {
+            b.ComplexProperty(u => u.DisplayName, prop =>
+            {
+                prop.Property(d => d.Value)
+                    .HasColumnName("DisplayName")
+                    .HasMaxLength(50)
+                    .IsRequired();
+            });
+
             b.ToTable("Users");
             b.HasIndex(u => u.Email).IsUnique();
             b.HasIndex(u => u.UserName).IsUnique();

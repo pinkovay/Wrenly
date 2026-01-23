@@ -13,9 +13,9 @@ public class UserRegistrationService(UserManager<User> userManager) : IUserRegis
 
     public async Task<Result> RegisterAsync(RegisterDTO registerDTO)
     {
-        var usernameResult = Username.Create(registerDTO.Username);
-        if (!usernameResult.Succeeded)
-            return Result.Failure(usernameResult.Errors);
+        var displayNameResult = DisplayName.Create(registerDTO.DisplayName);
+        if (!displayNameResult.Succeeded)
+            return Result.Failure(displayNameResult.Errors);
 
         var passwordResult = Password.Create(registerDTO.Password);
         if (!passwordResult.Succeeded)
@@ -28,7 +28,8 @@ public class UserRegistrationService(UserManager<User> userManager) : IUserRegis
         var user = new User
         {
             Email = emailResult.Data!.Value,
-            UserName = usernameResult.Data!.Value
+            UserName = emailResult.Data!.Value,
+            DisplayName = displayNameResult.Data!
         };
 
         var identityResult = await _userManager.CreateAsync(user, passwordResult.Data!.Value);
