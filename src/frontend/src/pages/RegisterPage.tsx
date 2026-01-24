@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-import { AuthLayout } from '../components/AuthLayout';
-import { FormField } from '../components/FormField';
+import { useAuth } from '@/contexts/AuthContext';
+import { AuthLayout } from '@/components/AuthLayout';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { PasswordInput } from '@/components/ui/password-input';
 
 export function RegisterPage() {
   const { signup } = useAuth();
@@ -29,54 +32,58 @@ export function RegisterPage() {
 
   return (
     <AuthLayout title="Criar conta">
-      <form onSubmit={handleSubmit} className="auth-form">
+      <form onSubmit={handleSubmit} className="space-y-4">
         {error && (
-          <div className="auth-form__error" role="alert">
+          <div
+            role="alert"
+            className="rounded-md border border-destructive/50 bg-destructive/10 px-3 py-2 text-sm text-destructive-foreground"
+          >
             {error}
           </div>
         )}
-        <FormField
-          id="register-displayName"
-          label="Nome de exibição"
-          type="text"
-          placeholder="Digite seu nome de exibição"
-          autoComplete="name"
-          value={displayName}
-          minLength={3}
-          onChange={(e) => setDisplayName(e.target.value)}
-          required
-        />
-        <FormField
-          id="register-email"
-          label="Email"
-          type="email"
-          placeholder="Digite seu email"
-          autoComplete="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <FormField
-          id="register-password"
-          label="Senha"
-          type="password"
-          placeholder="Digite sua senha"
-          autoComplete="new-password"
-          minLength={8}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <p className="auth-form__hint">
-          Mín. 8 caracteres, maiúsculas, minúsculas, números e especiais.
-        </p>
-        <button
-          type="submit"
-          className="auth-form__submit"
-          disabled={loading}
-        >
+        <div className="space-y-2">
+          <Label htmlFor="register-displayName">Username</Label>
+          <Input
+            id="register-displayName"
+            type="text"
+            autoComplete="name"
+            placeholder="Digite seu nome de exibição"
+            value={displayName}
+            minLength={3}
+            onChange={(e) => setDisplayName(e.target.value)}
+            required
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="register-email">Email</Label>
+          <Input
+            id="register-email"
+            type="email"
+            autoComplete="email"
+            placeholder="Digite seu email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="register-password">Senha</Label>
+          <PasswordInput
+            id="register-password"
+            autoComplete="new-password"
+            placeholder="Digite sua senha"
+            minLength={8}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <p className="text-xs text-muted-foreground">
+            Mín. 8 caracteres, maiúsculas, minúsculas, números e especiais.
+          </p>
+        </div>
+        <Button type="submit" className="w-full" disabled={loading}>
           {loading ? 'Criando conta…' : 'Criar conta'}
-        </button>
+        </Button>
       </form>
     </AuthLayout>
   );

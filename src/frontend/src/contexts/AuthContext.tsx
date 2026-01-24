@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useState, type ReactNode } from 'react';
-import * as authApi from '../api/auth';
+import * as authApi from '@/api/auth';
 
 const TOKEN_KEY = 'wrenly_access_token';
 
