@@ -8,7 +8,7 @@ namespace Wrenly.Api.Controllers.Auth;
 [ApiController]
 public class RegisterController(IUserRegistrationService userRegistrationService) : ControllerBase
 {
-    [HttpPost("singup")]
+    [HttpPost("signup")]
     public async Task<IActionResult> Register([FromBody] RegisterDTO registerDTO)
     {
         var result = await userRegistrationService.RegisterAsync(registerDTO);
