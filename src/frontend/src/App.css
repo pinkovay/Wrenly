@@ -159,6 +159,43 @@
   color: #fca5a5;
 }
 
+.form-field__password-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.form-field__input--with-toggle {
+  padding-right: 2.75rem;
+}
+
+.form-field__toggle {
+  position: absolute;
+  right: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  color: #71717a;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+}
+
+.form-field__toggle:hover {
+  color: #a1a1aa;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.form-field__toggle:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}
+
 /* Home */
 .home {
   min-height: 100vh;
