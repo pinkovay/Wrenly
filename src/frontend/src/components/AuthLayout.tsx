@@ -1,13 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import type { ReactNode } from 'react';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle} from '@/components/ui/card';
 import { ThemeToggle } from '@/components/ThemeToggle';
 
 interface AuthLayoutProps {
@@ -15,7 +8,7 @@ interface AuthLayoutProps {
   children: ReactNode;
 }
 
-export function AuthLayout({ title, children }: AuthLayoutProps) {
+export function AuthLayout({ children }: AuthLayoutProps) {
   const { pathname } = useLocation();
   const isLogin = pathname === '/login';
 
