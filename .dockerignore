@@ -1,6 +1,9 @@
 # Pastas de compilação local (ESSENCIAL)
 **/bin/
 **/obj/
+**/dist/
+**/build/
+**/out/
 
 # Pastas de ferramentas e logs
 .vs/

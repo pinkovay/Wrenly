@@ -15,7 +15,7 @@ services:
   backend:
     build:
       context: .
-      dockerfile: src/backend/Wrenly.Api/Dockerfile
+      dockerfile: apps/api/Wrenly.Api/Dockerfile
     container_name: wrenly-api
     ports:
       - "5000:8080"
