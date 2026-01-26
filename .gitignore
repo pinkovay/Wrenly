@@ -1,5 +1,8 @@
+**/node_modules/
+
 bin/
 obj/
 .vscode/
-src/backend/Wrenly.Api/appsettings.Development.json
+
+**/appsettings.Development.json
 .env
