@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Wrenly.Application.Auth.Registration;
+using Wrenly.Application.Auth.SocialLogin;
 
 namespace Wrenly.Api.Controllers.Auth;
 
@@ -12,12 +13,11 @@ public class RegisterController(IUserRegistrationService userRegistrationService
     public async Task<IActionResult> Register([FromBody] RegisterDTO registerDTO)
     {
         var result = await userRegistrationService.RegisterAsync(registerDTO);
-
         if (!result.Succeeded)
         {
             return BadRequest(new { errors = result.Errors });
         }
-
+        
         return Ok(new { message = "Usuário registrado com sucesso!" });
     }
 }

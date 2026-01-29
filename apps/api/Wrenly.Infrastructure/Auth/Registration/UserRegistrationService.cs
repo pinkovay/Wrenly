@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Wrenly.Application.Auth.Registration;
 using Wrenly.Domain.Common.Results;
 using Wrenly.Domain.Entities;

@@ -1,36 +1,35 @@
 using Microsoft.EntityFrameworkCore;
 using Wrenly.Api.Extensions;
-using Wrenly.Application.Common.Email;
 using Wrenly.Infrastructure.Auth.Identity;
+using Wrenly.Infrastructure.Email;
+using Wrenly.Infrastructure.Security;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AuthDbContext>(options =>
 {
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("AuthDb")
-    );
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AuthDb"));
 });
 
-builder.Services.Configure<SmtpOptions>(builder.Configuration.GetSection(SmtpOptions.SectionName));
+// Configurações via Extensions
+builder.Services.AddEmailInfrastructure(builder.Configuration);
+builder.Services.AddSecurityInfrastructure(builder.Configuration);
+builder.Services.AddAuthConfiguration().AddExternalProviders(builder.Configuration);
+builder.Services.AddSwaggerConfiguration();
 
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        policy.WithOrigins("http://localhost:5173")
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials();
+        policy.WithOrigins("http://localhost:5173").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
     });
 });
 
 builder.Services.AddControllers();
 
-builder.Services.AddAuthConfiguration();
-builder.Services.AddSwaggerConfiguration();
-
 var app = builder.Build();
+
+app.UseHttpsRedirection();
 
 if (app.Environment.IsDevelopment())
 {
@@ -38,8 +37,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(); 
 }
 
-app.UseHttpsRedirection();
 app.UseCors();
+
+app.UseAuthentication(); 
+app.UseAuthorization();
 
 app.MapControllers();
 
