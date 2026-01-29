@@ -19,9 +19,15 @@ services:
     container_name: wrenly-api
     ports:
       - "5000:8080"
+      - "5001:8081"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:8081;http://+:8080
       - ConnectionStrings__AuthDb=Server=sqlserver;Database=Wrenly.Auth;User Id=sa;Password=${SQL_SERVER_PASSWORD};TrustServerCertificate=True
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=${CERT_PASSWORD}
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    volumes:
+      - ${USERPROFILE}\.aspnet\https:/https:ro
     depends_on:
       - sqlserver
     networks:

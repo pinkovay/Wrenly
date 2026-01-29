@@ -27,6 +27,12 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllers();
 
+builder.Services.AddHttpsRedirection(options =>
+{
+    options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
+    options.HttpsPort = 5001; 
+});
+
 var app = builder.Build();
 
 app.UseHttpsRedirection();
@@ -34,7 +40,10 @@ app.UseHttpsRedirection();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(); 
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wrenly.Api v1");
+    }); 
 }
 
 app.UseCors();
