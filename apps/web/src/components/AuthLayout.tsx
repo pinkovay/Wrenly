@@ -17,10 +17,10 @@ export function AuthLayout({ children }: AuthLayoutProps) {
       <div className="absolute right-4 top-4">
         <ThemeToggle />
       </div>
-      <Card className="w-full max-w-[350px] shadow-[0_24px_48px_rgba(0,0,0,0.4)]">
+      <Card className="w-full max-w-87.5 shadow-[0_24px_48px_rgba(0,0,0,0.4)]">
         <CardHeader className="space-y-1 text-center">
           <div className="mb-2 flex items-center justify-center gap-2">
-            <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-[#6366f1] to-[#8b5cf6] text-lg font-bold text-primary-foreground">
+            <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-linear-to-br from-[#6366f1] to-[#8b5cf6] text-lg font-bold text-primary-foreground">
               W
             </span>
             <CardTitle className="text-xl">Wrenly</CardTitle>
