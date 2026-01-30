@@ -16,20 +16,14 @@ public class AuthDbContext(DbContextOptions<AuthDbContext> options)
 
         builder.Entity<User>(b =>
         {
-            b.ComplexProperty(u => u.DisplayName, prop =>
-            {
-                prop.Property(d => d.Value)
-                    .HasColumnName("DisplayName")
-                    .HasMaxLength(50)
-                    .IsRequired();
-            });
-
             b.ToTable("Users");
             b.HasIndex(u => u.Email).IsUnique();
             b.HasIndex(u => u.UserName).IsUnique();
+            b.HasIndex(u => u.DisplayName).IsUnique();
             
             b.Property(u => u.Email).HasMaxLength(256).IsRequired();
             b.Property(u => u.UserName).HasMaxLength(256).IsRequired();
+            b.Property(u => u.DisplayName).HasColumnName("DisplayName").HasMaxLength(50).IsRequired();
         });
         
         builder.Entity<IdentityRole<Guid>>(b => b.ToTable("Roles"));

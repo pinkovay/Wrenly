@@ -1,14 +1,17 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Wrenly.Application.Auth.Registration;
+using Wrenly.Infrastructure.Auth.Identity;
 using Wrenly.Domain.Common.Results;
 using Wrenly.Domain.Entities;
 using Wrenly.Domain.ValueObjects;
 
 namespace Wrenly.Infrastructure.Auth.Registration;
 
-public class UserRegistrationService(UserManager<User> userManager) : IUserRegistrationService
+public class UserRegistrationService(UserManager<User> userManager, AuthDbContext dbContext) : IUserRegistrationService
 {
     private readonly UserManager<User> _userManager = userManager;
+    private readonly AuthDbContext _db = dbContext;
 
     public async Task<Result> RegisterAsync(RegisterDTO registerDTO)
     {
@@ -24,11 +27,19 @@ public class UserRegistrationService(UserManager<User> userManager) : IUserRegis
         if (!emailResult.Succeeded)
             return Result.Failure(emailResult.Errors);
 
+        var existingByEmail = await _userManager.FindByEmailAsync(emailResult.Data!.Value);
+        if (existingByEmail != null)
+            return Result.Failure("Não conseguimos registrar sua conta. Verifique os dados informados.");
+
+        var displayNameEmUso = await _db.Users.AnyAsync(u => u.DisplayName == displayNameResult.Data!.Value);
+        if (displayNameEmUso)
+            return Result.Failure("Username indisponível");
+
         var user = new User
         {
             Email = emailResult.Data!.Value,
             UserName = emailResult.Data!.Value,
-            DisplayName = displayNameResult.Data!
+            DisplayName = displayNameResult.Data!.Value
         };
 
         var identityResult = await _userManager.CreateAsync(user, passwordResult.Data!.Value);

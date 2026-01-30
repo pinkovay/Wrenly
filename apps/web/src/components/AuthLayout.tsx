@@ -1,16 +1,23 @@
-import { Link, useLocation } from 'react-router-dom';
-import type { ReactNode } from 'react';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle} from '@/components/ui/card';
-import { ThemeToggle } from '@/components/ThemeToggle';
+import { Link, useLocation } from "react-router-dom";
+import type { ReactNode } from "react";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface AuthLayoutProps {
   title: string;
   children: ReactNode;
 }
 
-export function AuthLayout({ children }: AuthLayoutProps) {
+export function AuthLayout({ title, children }: AuthLayoutProps) {
   const { pathname } = useLocation();
-  const isLogin = pathname === '/login';
+  const isLogin = pathname === "/login";
+  const hideFooter = pathname === "/complete-profile";
 
   return (
     <div className="relative flex min-h-svh flex-col items-center justify-center bg-transparent p-4">
@@ -25,34 +32,42 @@ export function AuthLayout({ children }: AuthLayoutProps) {
             </span>
             <CardTitle className="text-xl">Wrenly</CardTitle>
           </div>
-          {/* <CardDescription>{title}</CardDescription> */}
+          <p
+            className="text-base font-semibold text-foreground"
+            role="heading"
+            aria-level={2}
+          >
+            {title}
+          </p>
         </CardHeader>
         <CardContent>{children}</CardContent>
-        <CardFooter className="flex justify-center pt-4">
-          <p className="text-center text-sm text-muted-foreground">
-            {isLogin ? (
-              <>
-                Não tem conta?{' '}
-                <Link
-                  to="/register"
-                  className="font-medium text-[#818cf8] underline-offset-4 hover:text-[#a5b4fc] hover:underline"
-                >
-                  Criar conta
-                </Link>
-              </>
-            ) : (
-              <>
-                Já tem conta?{' '}
-                <Link
-                  to="/login"
-                  className="font-medium text-[#818cf8] underline-offset-4 hover:text-[#a5b4fc] hover:underline"
-                >
-                  Entrar
-                </Link>
-              </>
-            )}
-          </p>
-        </CardFooter>
+        {!hideFooter && (
+          <CardFooter className="flex justify-center pt-4">
+            <p className="text-center text-sm text-muted-foreground">
+              {isLogin ? (
+                <>
+                  Não tem conta?{" "}
+                  <Link
+                    to="/register"
+                    className="font-medium text-[#818cf8] underline-offset-4 hover:text-[#a5b4fc] hover:underline"
+                  >
+                    Criar conta
+                  </Link>
+                </>
+              ) : (
+                <>
+                  Já tem conta?{" "}
+                  <Link
+                    to="/login"
+                    className="font-medium text-[#818cf8] underline-offset-4 hover:text-[#a5b4fc] hover:underline"
+                  >
+                    Entrar
+                  </Link>
+                </>
+              )}
+            </p>
+          </CardFooter>
+        )}
       </Card>
     </div>
   );

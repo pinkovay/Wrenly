@@ -23,7 +23,7 @@ public class TokenService(IOptions<JwtOptions> jwtOptions) : ITokenService
             new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
             new(JwtRegisteredClaimNames.Email, user.Email!),
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new("displayName", user.DisplayName.Value) 
+            new("displayName", user.DisplayName) 
         };
 
         var tokenDescriptor = new SecurityTokenDescriptor

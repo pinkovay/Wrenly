@@ -6,5 +6,5 @@ namespace Wrenly.Domain.Entities;
 
 public sealed class User : IdentityUser<Guid>
 {
-    public DisplayName DisplayName {get; set;} = null!;
+    public string DisplayName {get; set;} = null!;
 }

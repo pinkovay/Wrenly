@@ -1,5 +1,49 @@
 const API_BASE = '/api';
 
+/** Redireciona o usuário para o backend, que inicia OAuth Google e redireciona para o provedor. */
+export function getGoogleSignInUrl(): string {
+  return `${API_BASE}/auth/signin-Google`;
+}
+
+export interface FinalizeSocialRegisterRequest {
+  email: string;
+  provider: string;
+  providerKey: string;
+  displayName: string;
+}
+
+export interface FinalizeSocialRegisterResponse {
+  requiresProfileCompletion: boolean;
+  email: string;
+  token: string;
+}
+
+export async function finalizeSocialRegister(
+  email: string,
+  provider: string,
+  providerKey: string,
+  displayName: string
+): Promise<FinalizeSocialRegisterResponse> {
+  const res = await fetch(`${API_BASE}/auth/finalize`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email,
+      provider,
+      providerKey,
+      displayName,
+    } satisfies FinalizeSocialRegisterRequest),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const err = data as { errors?: string[] };
+    throw new Error(
+      Array.isArray(err?.errors) ? err.errors.join(' ') : 'Erro ao finalizar cadastro.'
+    );
+  }
+  return data as FinalizeSocialRegisterResponse;
+}
+
 export interface LoginRequest {
   email: string;
   password: string;
