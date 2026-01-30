@@ -36,10 +36,12 @@ export async function finalizeSocialRegister(
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
-    const err = data as { errors?: string[] };
-    throw new Error(
-      Array.isArray(err?.errors) ? err.errors.join(' ') : 'Erro ao finalizar cadastro.'
-    );
+    const arr = Array.isArray(data)
+      ? data
+      : (Array.isArray((data as { errors?: string[] })?.errors)
+          ? (data as { errors: string[] }).errors
+          : ['Erro ao finalizar cadastro.']);
+    throw new Error(arr.join(' '));
   }
   return data as FinalizeSocialRegisterResponse;
 }

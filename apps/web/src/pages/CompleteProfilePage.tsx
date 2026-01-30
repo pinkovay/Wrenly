@@ -32,9 +32,7 @@ export function CompleteProfilePage() {
       await finalizeSocialProfile(email, provider, key, displayName);
       navigate("/", { replace: true });
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "Erro ao finalizar cadastro.",
-      );
+      setError(err instanceof Error ? err.message : "Erro ao finalizar cadastro.");
     } finally {
       setLoading(false);
     }
@@ -69,12 +67,12 @@ export function CompleteProfilePage() {
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="complete-displayName">Nome de exibição</Label>
+          <Label htmlFor="complete-username">Username</Label>
           <Input
-            id="complete-displayName"
+            id="complete-username"
             type="text"
             autoComplete="username"
-            placeholder="Como você quer ser chamado"
+            placeholder="Como você quer ser chamado?"
             value={displayName}
             minLength={3}
             maxLength={50}

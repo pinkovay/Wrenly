@@ -12,8 +12,8 @@ using Wrenly.Infrastructure.Auth.Identity;
 namespace Wrenly.Infrastructure.Auth.Identity.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20260116165009_AddUniqueConstraints")]
-    partial class AddUniqueConstraints
+    [Migration("20260130024653_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -169,6 +169,12 @@ namespace Wrenly.Infrastructure.Auth.Identity.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("DisplayName");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(256)
@@ -212,6 +218,9 @@ namespace Wrenly.Infrastructure.Auth.Identity.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DisplayName")
+                        .IsUnique();
 
                     b.HasIndex("Email")
                         .IsUnique();

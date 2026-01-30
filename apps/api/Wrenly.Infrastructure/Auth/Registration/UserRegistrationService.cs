@@ -31,8 +31,8 @@ public class UserRegistrationService(UserManager<User> userManager, AuthDbContex
         if (existingByEmail != null)
             return Result.Failure("Não conseguimos registrar sua conta. Verifique os dados informados.");
 
-        var displayNameEmUso = await _db.Users.AnyAsync(u => u.DisplayName == displayNameResult.Data!.Value);
-        if (displayNameEmUso)
+        var existinByDisplayName = await _db.Users.AnyAsync(u => u.DisplayName == displayNameResult.Data!.Value);
+        if (existinByDisplayName)
             return Result.Failure("Username indisponível");
 
         var user = new User
@@ -56,7 +56,6 @@ public class UserRegistrationService(UserManager<User> userManager, AuthDbContex
                 }
                 else if (error.Code == "DuplicateUserName")
                 {
-                    errors.Add("Nome de usuário indisponível.");
                 }
                 else if (error.Code == "PasswordTooShort")
                 {

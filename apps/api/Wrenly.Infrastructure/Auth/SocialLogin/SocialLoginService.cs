@@ -2,17 +2,23 @@ using System;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Wrenly.Application.Auth.SocialLogin;
 using Wrenly.Application.Common.Security;
 using Wrenly.Domain.Common.Results;
 using Wrenly.Domain.Entities;
 using Wrenly.Domain.ValueObjects;
+using Wrenly.Infrastructure.Auth.Identity;
 
 namespace Wrenly.Infrastructure.Auth.SocialLogin;
 
 public class SocialLoginService(
-    UserManager<User> userManager, SignInManager<User> signInManager, ITokenService tokenService) : ISocialLoginService
+    UserManager<User> userManager,
+    SignInManager<User> signInManager,
+    ITokenService tokenService,
+    AuthDbContext dbContext) : ISocialLoginService
 {
+    private readonly AuthDbContext _db = dbContext;
     public AuthenticationProperties ConfigureExternalAuthenticationProperties(string provider, string redirectUrl)
     {
         return signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
@@ -77,11 +83,17 @@ public class SocialLoginService(
         if (!displayNameResult.Succeeded)
             return Result<SocialAuthResponseDTO>.Failure(displayNameResult.Errors);
 
+        var displayName = displayNameResult.Data!.Value;
+
+        var existinByDisplayName = await _db.Users.AnyAsync(u => u.DisplayName == displayName);
+        if (existinByDisplayName)
+            return Result<SocialAuthResponseDTO>.Failure("Username indisponível");
+
         var user = new User
         {
             Email = finalizeDTO.Email,
             UserName = finalizeDTO.Email,
-            DisplayName = displayNameResult.Data!
+            DisplayName = displayName
         };
 
         var createUser = await userManager.CreateAsync(user);
